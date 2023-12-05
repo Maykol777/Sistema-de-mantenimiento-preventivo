@@ -1,0 +1,60 @@
+<!-- password_reset_app/exito_recuperacion.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Éxito de Recuperación de Contraseña</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://ssarauco.cl/WWW/wp-content/uploads/2022/03/cropped-BANNER-Minsal.png');
+            background-size: cover;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+
+        h1 {
+            color: #4285f4;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        a {
+            color: #4285f4;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 8px;
+            width: 70%;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Recuperación de Contraseña Exitosa</h1>
+        <p>Se ha enviado un correo de recuperación a tu dirección de correo electrónico. Por favor, sigue las instrucciones en el correo para restablecer tu contraseña.</p>
+        <p>¿Ya recuerdas tu contraseña? <a href="{% url 'iniciar_sesion' %}">Inicia Sesión</a></p>
+    </div>
+</body>
+</html>
+

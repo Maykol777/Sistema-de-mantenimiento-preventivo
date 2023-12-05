@@ -1,0 +1,137 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - {% block titulo_pestania %}{% endblock titulo_pestania %}</title>
+  <link rel="stylesheet" href="{% static 'css/admin/base.css' %}">
+
+</head>
+
+<body>
+
+  <header>
+
+    <nav>
+      <div>
+        <img src="{% static 'img/usuario.png' %}" alt="">
+        <span>{{ request.user.username }}</span>
+      </div>
+      <div>
+        <img src="{% static 'img/admin.png' %}" alt="">
+        <span>{{ request.user.cargo }}</span>
+      </div>
+
+      <div>
+        <a href="{% url 'cerrar_sesion' %}">
+          <img src="{% static 'img/logout.png' %}" alt="">
+          <span>cerrar sesión</span>
+        </a>
+      </div>
+    </nav>
+
+
+  </header>
+
+
+
+  <main>
+    <aside>
+      <div class="logo">
+        <div class="azul"></div>
+        <div class="rojo"></div>
+      </div>
+
+      <div class="titulo">
+        <div>
+          <h3>Servicio de Salud Arauco</h3>
+          <span>Region del BioBio</span>
+        </div>
+        <span>Ministerio de Salud</span>
+      </div>
+
+      <div class="separador">
+        <hr class="custom-width">
+      </div>
+
+      <div class="opciones">
+        <div>
+          <a href="{% url 'inicio_admin' %}">
+            <img src="{% static 'img/inicio.png' %}" alt="">
+            Inicio
+          </a>
+        </div>
+
+        <div class="contenedor-instituciones">
+          <details>
+            <summary>Instituciones</summary>
+            <a href="{% url 'instituciones_admin' institucion='Lebu' tipo_equipo='medico' %}">Lebu</a>
+            <a href="{% url 'institucion_arauco' %}">Arauco</a>
+            <a href="{% url 'institucion_curanilahue' %}">Curanilahue</a>
+            <a href="{% url 'institucion_canete' %}">Cañete</a>
+            <a href="{% url 'institucion_contulmo' %}">Contulmo</a>
+          </details>
+        </div>
+
+        <div class="contenedor-catastro">
+          <details>
+            <summary>Añadir Catastro</summary>
+            <a href="{% url 'anadir_catastro_industrial' %}">Equipo Industrial</a>
+            <a href="{% url 'anadir_catastro_vehiculos' %}">Vehiculos</a>
+            <a href="{% url 'anadir_catastro_medicos' %}">Equipo Medico</a>
+          </details>
+        </div>
+
+        <div>
+          <a href="{% url 'convenios' %}">
+            <img src="{% static 'img/convenios.png' %}" alt="">
+            Convenios
+          </a>
+        </div>
+
+<!--falta cambiar el icono y algo mas -->
+        <div>
+          <a href="{% url 'mantencion_correctiva' %}">
+            <img src="{% static 'img/correctiva+.png' %}" alt="">
+            Mantención Correctiva
+          </a>
+        </div>
+
+
+        <div>
+          <a href="{% url 'lista_usuarios' %}">
+            <img src="{% static 'img/añadir_usuario.png' %}" alt="">
+            Crear usuario
+          </a>
+        </div>
+
+      </div>
+    </aside>
+
+
+    <section>
+
+
+      {% block contenido_dinamico %}
+        
+      {% endblock contenido_dinamico %}
+
+
+    </section>
+
+    
+  </main>
+
+
+
+
+
+
+
+
+</body>
+
+</html>

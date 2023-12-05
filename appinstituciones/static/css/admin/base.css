@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', sans-serif;
+}
+
+header{
+    width: 100%;
+    height: 6vh;
+    background-color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header nav{
+    width: 95%;
+    height: 100%;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+header nav div{
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+    margin-right: 10px;
+}
+
+header nav div img{
+    height: 70%;
+    margin-right: 7px;
+}
+
+header nav div span{
+    color: white;
+}
+
+header nav div a{
+    height: 90%;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+header nav div a img{
+    height: 90%;
+    margin-right: 7px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+main{
+    width: 100%;
+    height: 94vh;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    /* justify-content: flex-start; */
+}
+
+
+
+main aside{
+    width: 20%;
+    height: 100%;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+
+    /* display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center; */
+}
+
+main aside .logo{
+    width: 100%;
+    height: 1%;
+    display: inline-flex !important;
+    flex-direction: row;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+main aside .azul,
+main aside .rojo{
+    width: 30%;
+    height: 100%;
+}
+
+main aside .azul{
+    background-color: blue;
+}
+
+main aside .rojo{
+    background-color: red;
+}
+
+main aside .titulo{
+    width: 100%;
+    height: 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-align: center;
+}
+
+main aside .titulo div p,
+main aside .titulo span{
+    color: rgb(77, 77, 77);
+    margin-top: 10px;
+}
+
+.separador{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 1%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.separador .custom-width{
+    width: 80%;
+    color: gainsboro;
+}
+
+
+
+
+.opciones{
+    width: 100%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.opciones div{
+    width: 70%;
+    height: 7%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.opciones div a{
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-decoration: none;
+    color: #646464;
+}
+
+.opciones div a img{
+    height: 85%;
+    margin-right: 10px;
+}
+
+.opciones div a:hover{
+    color: blue;
+}
+
+.opciones .contenedor-instituciones,
+.opciones .contenedor-catastro{
+    /* width: 70%; */
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    height: auto !important;
+}
+
+.opciones .contenedor-instituciones details,
+.opciones .contenedor-catastro details{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: auto;
+    cursor: pointer;
+}
+
+.opciones .contenedor-instituciones details a,
+.opciones .contenedor-catastro details a{
+    height: auto;
+    margin-top: 5px;
+}
+
+
+
+
+
+
+
+
+
+main section{
+    width: 75%;
+    height: 100%;
+    margin-left: 50px;
+    margin-right: 50px;
+    /* background-color: #646464; */
+    display: flex;
+    flex-direction: column;
+}
+

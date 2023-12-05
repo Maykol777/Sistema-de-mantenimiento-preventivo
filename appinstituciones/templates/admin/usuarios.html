@@ -1,0 +1,316 @@
+{% extends "admin/base_admin.html" %}
+{% load static %}
+
+{% block titulo_pestania %}Lista de usuarios{% endblock titulo_pestania %}
+
+
+{% block contenido_dinamico %}
+
+
+
+<link rel="stylesheet" href="{% static 'css/admin/usuarios.css' %}">
+<!-- <link rel="stylesheet" href="{% static 'css/toastr.css' %}">
+<script src="{% static 'js/toastr.js' %}"></script> -->
+
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<!-- https://cdnjs.com/libraries/izimodal -->
+<!-- <script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous">
+</script> -->
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.6.1/js/iziModal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.6.1/css/iziModal.min.css">
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+
+<div id="app">
+    <div class="titulo">
+        <h2>Lista de Usuarios</h2>
+        {% if request.user.cargo == 'administrador' %}
+            <button id="btn-crear-usuario">crear usuario</button>
+        {% endif %}
+    </div>
+    
+    <div class="contenedor-tabla-usuarios">
+    
+    
+        <div class="tabla">
+    
+            <table>
+                <thead>
+                    <tr>
+                        <!-- <th>ID</th> -->
+                        <th>Nombre de usuario</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Rut</th>
+                        <th>Correo</th>
+                        <th>Cargo</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+    
+                <tbody>
+                    {% for usuario in usuarios %}
+                    <tr id="fila-{{ usuario.id }}">
+                        <!-- <td>{{ usuario.id }}</td> -->
+                        <td>{{ usuario.username }}</td>
+                        <td>{{ usuario.first_name }}</td>
+                        <td>{{ usuario.last_name }}</td>
+                        <td>{{ usuario.rut }}</td>
+                        <td>{{ usuario.email }}</td>
+                        <td>{{ usuario.cargo }}</td>
+                        <td>
+                            {% if request.user.cargo == 'administrador' %}
+                                <button @click="abrirModalInformacionUsuario" id="{{ usuario.id }}" class="trigger">Mas</button>
+                                {% if request.user.rut == usuario.rut %}
+                                
+                                {% else %}
+                                <button id="{{ usuario.id }}" class="eliminar-usuario" @click="btnEliminarUsuario">Eliminar</button>
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+    
+    
+    
+            </table>
+    
+        </div>  
+    
+        <div class="paginacion">
+            <span>
+                {% if usuarios.has_previous %}
+                    <a href="?page=1">&laquo; Primero</a>
+                    <a href="?page={{ usuarios.previous_page_number }}">Anterior</a>
+                {% endif %}
+    
+                <span>
+                    Página {{ usuarios.number }} de {{ usuarios.paginator.num_pages }}
+                </span>
+    
+    
+                {% if usuarios.has_next %}
+                    <a href="?page={{ usuarios.next_page_number }}">Siguiente</a>
+                    <a href="?page={{ usuarios.paginator.num_pages }}">Último &raquo;</a>
+                {% endif %}
+    
+            </span>
+        </div>
+    </div>
+    
+    
+    
+    
+    
+    <dialog id="modal-crear-usuario">
+        <div class="contenedor-btn-cerrar">
+            <button id="btn-cerrar-dialogo">cerrar</button>
+        </div>
+    
+        <div class="titulo-modal">
+            <h2>Crear Usuario</h2>
+        </div>
+    
+        <div class="contenedor-formulario">
+            <form action="{% url 'crear_usuario' %}" method="POST">
+                {% csrf_token %}
+                <div>
+                    <label for="">Nombre de usuario</label>
+                    <input type="text" name="nombre-usuario" required>
+                </div>
+                <div>
+                    <label for="nombre">Nombre</label>
+                    <input type="text" name="nombre" required>
+                </div>
+                <div>
+                    <label for="apellido">Apellido</label>
+                    <input type="text" name="apellido" required>
+                </div>
+                <div>
+                    <label for="rut">Rut</label>
+                    <input type="text" placeholder="Ingrese rut" name="rut" id="input-rut" required>
+                </div>
+                <div>
+                    <label for="correo">Correo</label>
+                    <input type="email" name="correo" id="correo" required>
+                </div>
+                <div>
+                    <label for="contrasenia">Contraseña</label>
+                    <input type="password" name="contrasenia" id="" required>
+                </div>
+                <div>
+                    <label for="">Cargo</label>
+                    <select name="cargo" id="">
+                        <option value="usuario">Usuario</option>
+                        <option value="administrador">Administrador</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="">Institución</label>
+                    <select name="institucion" id="">
+                        {% for i in instituciones %}
+                          <option value="{{ i.id }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <input type="submit" value="crear usuario">
+                </div>
+            </form>
+        </div>
+    
+    </dialog>
+    
+
+
+
+
+
+
+    <!-- Modal structure -->
+    <div ref="miModal" id="modal-opciones-usuario"> <!-- data-iziModal-fullscreen="true"  data-iziModal-title="Welcome"  data-iziModal-subtitle="Subtitle"  data-iziModal-icon="icon-home" -->
+        <!-- Modal content -->
+        <div class="contenedor-informacion-usuario">
+            <div>
+                <span class="info-strong">Nombre: </span> 
+                <span class="spanEnModalNombre"></span>
+            </div>
+            <div>
+                <span class="info-strong">Apellido: </span> 
+                <span class="spanEnModalApellido"></span>
+            </div>
+            <div>
+                <span class="info-strong">Nombre de usuario: </span> 
+                <span class="spanEnModalNombreUsuario"></span>
+            </div>
+            <div>
+                <span class="info-strong">Correo: </span> 
+                <span class="spanEnModalCorreo"></span>
+            </div>
+            <div>
+                <span class="info-strong">Rut: </span> 
+                <span class="spanEnModalRut"></span>
+            </div>
+            <div>
+                <span class="info-strong">Cargo: </span> 
+                <span class="spanEnModalCargo"></span>
+            </div>
+            <div>
+                <span class="info-strong">Institución: </span> 
+                <span class="spanEnModalInstitucion"></span>
+            </div>
+        </div>
+
+        <hr>
+        
+        <div class="contenedor-form-editar-informacion-usuario">
+            <form method="POST" action="{% url 'editar_usuario' %}">
+                {% csrf_token %}
+                <div>
+                    <h3>Editar Información</h3>
+                </div>
+                <div>
+                    <input type="hidden" name="id-usuario" class="id-usuario" value="">
+                    <input type="text" placeholder="nombre" name="nuevo-nombre">
+                    <input type="text" placeholder="apellido" name="nuevo-apellido">
+                    <input type="text" placeholder="nombre de usuario" name="nuevo-nombre-usuario">
+                </div>
+                
+                <div>
+                    <input type="text" placeholder="correo" name="nuevo-correo">
+                    <input type="text" placeholder="rut con punto y guion" name="nuevo-rut">
+                    <select name="cargo" id="">
+                        <option value="" disabled selected>Seleccione un cargo</option>
+                        <option value="administrador">Administrador</option>
+                        <option value="usuario">Usuario</option>
+                    </select>
+                </div>
+                <div>
+                    <select name="institucion">
+                        <option value="" disabled selected>Seleccione una ciudad</option>
+                        <option value="1">Lebu</option>
+                        <option value="2">Arauco</option>
+                        <option value="4">Cañete</option>
+                        <option value="3">Curanilahue</option>
+                        <option value="5">Contulmo</option>
+                    </select>
+                </div>
+
+                <div>
+                    <button class="editar-usuario">Editar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    
+
+
+    <!-- Dialogo Jquery -->
+    <div id="dialog-confirm" title="Empty the recycle bin?">
+        <p id="texto-dialogo-js-ui" style="display: none;">
+            <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+            Deseas eliminar al usuario, despues no podras revertirlo?
+        </p>
+    </div>
+    <!-- Dialogo Jquery -->
+
+    
+    
+</div>
+
+<script src="{% static 'js/admin/usuarios.js' %}"></script>
+
+
+<script>
+    const btnAbrirDialogo = document.getElementById('btn-crear-usuario')
+    const dialogo = document.getElementById('modal-crear-usuario')
+    const btnCerrarDialogo = document.getElementById('btn-cerrar-dialogo')
+
+    btnAbrirDialogo.addEventListener('click', () => {
+        console.log('btn abierto');
+        dialogo.show()
+    })
+
+    btnCerrarDialogo.addEventListener('click', () => {
+        dialogo.close()
+    })
+</script>
+
+
+
+
+
+{% if messages %}
+    {% for message in messages %}
+        <script>
+            Toastify({
+                text: `{{ message }}`,
+                duration: 3000,
+                destination: "https://github.com/apvarun/toastify-js",
+                newWindow: true,
+                close: true,
+                gravity: "bottom", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                backgroundColor: "#327859", // Color de fondo para un mensaje de error
+                className: "success", // Clase CSS para mensajes de error
+                onClick: function(){} // Callback after click
+              }).showToast();
+        </script>
+    {% endfor %}
+{% endif %}
+
+{% endblock contenido_dinamico %}

@@ -1,0 +1,251 @@
+{% extends "admin/base_admin.html" %}
+{% load static %}
+
+
+{% block titulo_pestania %}Añadir Catastro Vehiculos{% endblock titulo_pestania %}
+
+{% block contenido_dinamico %}
+<link rel="stylesheet" href="{% static 'css/admin/convenios.css' %}">
+<link rel="stylesheet" href="{% static 'css/ventanaModal.css' %}">
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<div id="app">
+	{% if request.user.cargo == 'administrador' %}
+	<div id="contenedor-formulario">
+		<div class="titulo-">
+			<h2>Convenios</h2>
+		</div>
+
+		<form action="" method="POST">
+			{% csrf_token %}
+			<div>
+				<input type="text" required placeholder="Servicio de salud" name="servicio-salud">
+				<input type="text" required placeholder="Nombre del convenio" name="nombre-convenio">
+                <select name="institucion">
+					<option value="" disabled selected>Seleccione una ciudad</option>
+					<option value="1">Lebu</option>
+					<option value="2">Arauco</option>
+					<option value="4">Cañete</option>
+					<option value="3">Curanilahue</option>
+					<option value="5">Contulmo</option>
+				</select>
+			</div>
+            
+			<div>
+                <input type="number" required placeholder="Monto anual" name="monto-anual">
+				<input type="text" required placeholder="Subsignacion SIGFE" name="subsignacion-sigfe">
+				<input type="text" required placeholder="Establecimiento" name="establecimiento">
+			</div>
+            
+			<div>
+				<input type="text" required placeholder="Orden de compra" name="orden-compra">
+				<select name="tipo" id="">
+					<option value="" disabled selected>Seleccione una opción tipo</option>
+					<option value="Medico">Medico</option>
+					<option value="Industrial">Industrial</option>
+					<option value="Vehiculo">Vehiculo</option>
+				</select>
+			</div>
+
+			<div>
+                <div>
+					<label for="">Fecha de resolución</label>
+				    <input type="date" required placeholder="Fecha de resolucion" name="fecha-resolucion">
+                    
+                </div>
+                <div>
+                    <label for="">Fecha de expiración</label>
+                    <input type="date" required placeholder="Fecha de expiracion" name="fecha-expiracion">
+                </div>
+                
+			</div>
+            
+			<div>
+                <input type="submit" value="Agregar">
+				{% if messages %}
+				<ul class="messages">
+					{% for message in messages %}
+					<li style="color: green;" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+					{% endfor %}
+				</ul>
+				{% endif %}
+			</div>
+
+
+
+
+
+		</form>
+	</div>
+	{% elif request.cargo.user == 'usuario' %}
+	<div id="contenedor-formulario" class="usuario">
+		<div class="titulo-">
+			<h2>Convenios</h2>
+		</div>
+
+		<form action="" method="POST">
+			{% csrf_token %}
+			<div>
+				<input type="text" required placeholder="Servicio de salud" name="servicio-salud">
+				<input type="text" required placeholder="Nombre del convenio" name="nombre-convenio">
+                <select name="institucion">
+					<option value="" disabled selected>Seleccione una ciudad</option>
+					<option value="1">Lebu</option>
+					<option value="2">Arauco</option>
+					<option value="4">Cañete</option>
+					<option value="3">Curanilahue</option>
+					<option value="5">Contulmo</option>
+				</select>
+			</div>
+            
+			<div>
+                <input type="number" required placeholder="Monto anual" name="monto-anual">
+				<input type="text" required placeholder="Subsignacion SIGFE" name="subsignacion-sigfe">
+				<input type="text" required placeholder="Establecimiento" name="establecimiento">
+			</div>
+            
+			<div>
+				<input type="text" required placeholder="Orden de compra" name="orden-compra">
+				<select name="tipo" id="">
+					<option value="" disabled selected>Seleccione una opción tipo</option>
+					<option value="Medico">Medico</option>
+					<option value="Industrial">Industrial</option>
+					<option value="Vehiculo">Vehiculo</option>
+				</select>
+			</div>
+
+			<div>
+                <div>
+                    <label for="">Fecha de expiración</label>
+                    <input type="date" required placeholder="Fecha de expiracion" name="fecha-expiracion">
+                </div>
+                <div>
+                    <label for="">Fecha de resolución</label>
+				    <input type="date" required placeholder="Fecha de resolucion" name="fecha-resolucion">
+                </div>
+                
+			</div>
+            
+			<div>
+                <input type="submit" value="Agregar">
+				{% if messages %}
+				<ul class="messages">
+					{% for message in messages %}
+					<li style="color: green;" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+					{% endfor %}
+				</ul>
+				{% endif %}
+			</div>
+
+
+
+
+
+		</form>
+	</div>
+	{% endif %}
+
+
+
+
+
+	{% if request.user.cargo == 'administrador' %}
+	<div id="contenedor-tabla">
+		<div class="tabla">
+			<table id="tabla">
+				<thead>
+					<tr>
+						<!-- <th>ID</th> -->
+						<!-- <th>Servicio Clinico</th> -->
+						<th>Servico Salud</th>
+						<!-- <th>SubClase</th> -->
+						<!-- <th>Marca</th> -->
+						<th>Establecimiento</th>
+						<!-- <th>Serie</th> -->
+						<th>Orden Compra</th>
+						<th>Monto Anual</th>
+						<th>Tipo</th>
+						<!-- <th>N° Motor</th> -->
+						<!-- <th>Año Adquisición</th> -->
+						<!-- <th>Información</th> -->
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="data in data_tabla" :key="data.id">
+						<!-- <td>${ data.id }</td> -->
+						<!-- <td>${ data.servicio_clinico }</td> -->
+						<td>${ data.fields.servicio_salud }</td>
+						<!-- <td>${ data.subclase }</td> -->
+						<!-- <td>${ data.marca }</td> -->
+						<td>${ data.fields.establecimiento }</td>
+						<!-- <td>${ data.serie }</td> -->
+						<td>${ data.fields.orden_compra }</td>
+						<td>${ data.fields.monto_anual }</td>
+						<!-- <td>${ data.propio }</td> -->
+						<td>${ data.fields.tipo }</td>
+						<!-- <td>${ data.anio_adquisicion }</td> -->
+						<!-- <td><button v-bind:id="data.id" @click="mostrarModal">Mas</button></td> -->
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	{% elif request.user.cargo == 'usuario' %}
+	<div id="contenedor-tabla" class="usuario">
+		<div class="tabla">
+			<table id="tabla">
+				<thead>
+					<tr>
+						<!-- <th>ID</th> -->
+						<!-- <th>Servicio Clinico</th> -->
+						<th>Servico Salud</th>
+						<!-- <th>SubClase</th> -->
+						<!-- <th>Marca</th> -->
+						<th>Establecimiento</th>
+						<!-- <th>Serie</th> -->
+						<th>Orden Compra</th>
+						<th>Monto Anual</th>
+						<th>Tipo</th>
+						<!-- <th>N° Motor</th> -->
+						<!-- <th>Año Adquisición</th> -->
+						<!-- <th>Información</th> -->
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="data in data_tabla" :key="data.id">
+						<!-- <td>${ data.id }</td> -->
+						<!-- <td>${ data.servicio_clinico }</td> -->
+						<td>${ data.fields.servicio_salud }</td>
+						<!-- <td>${ data.subclase }</td> -->
+						<!-- <td>${ data.marca }</td> -->
+						<td>${ data.fields.establecimiento }</td>
+						<!-- <td>${ data.serie }</td> -->
+						<td>${ data.fields.orden_compra }</td>
+						<td>${ data.fields.monto_anual }</td>
+						<!-- <td>${ data.propio }</td> -->
+						<td>${ data.fields.tipo }</td>
+						<!-- <td>${ data.anio_adquisicion }</td> -->
+						<!-- <td><button v-bind:id="data.id" @click="mostrarModal">Mas</button></td> -->
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	{% endif %}
+
+
+
+</div>
+
+<script src="{% static 'js/admin/convenios.js' %}"></script>
+
+
+
+
+
+
+
+
+
+{% endblock contenido_dinamico %}

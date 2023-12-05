@@ -1,0 +1,186 @@
+main section{
+    justify-content: space-around;
+}
+
+
+main section .titulo{
+    width: 100%;
+    height: 10%;
+    /* margin-top: 15px;
+    margin-bottom: 15px; */
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 7px;
+    border: 1px solid #3333332a;
+}
+
+main section .titulo h2{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+
+
+
+
+#app{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#contenedor-formulario,
+#contenedor-tabla{
+    width: 100%;
+    height: 45%;
+    border-radius: 7px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border: 1px solid #3333332a;
+}
+
+#contenedor-formulario .titulo-{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#contenedor-formulario form{
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+#contenedor-formulario form div{
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 95%;
+    height: 30%;
+    margin-bottom: 10px;
+}
+
+#contenedor-formulario form div input,
+#contenedor-formulario form div select{
+    width: 30%;
+    padding: 7px;
+    margin-bottom: 7px;
+    border-radius: 7px;
+    border: 1px solid #33333348;
+}
+
+#contenedor-formulario form div input[type=submit]{
+    cursor: pointer;
+    background-color: rgb(43, 176, 253);
+    color: white;
+}
+
+
+
+
+
+#contenedor-tabla .tabla{
+    width: 100%;
+    height: 95%;
+}
+
+#contenedor-tabla .tabla table{
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    /* overflow: auto; */
+    overflow-x: hidden;
+
+}
+
+#contenedor-tabla .tabla table thead{
+    width: 100%;
+    /* padding: 7px; */
+    /* background-color: #787878; */
+    border: 1px solid #33333337;
+    border-radius: 7px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+#contenedor-tabla .tabla table thead tr,
+#contenedor-tabla .tabla table tbody tr{
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+#contenedor-tabla .tabla table thead tr th{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* padding: 7px; */
+    width: 7%;
+    /* color: white; */
+
+}
+
+#contenedor-tabla .tabla table tbody{
+    width: 100%;
+    /* padding: 7px; */
+    /* background-color: #787878; */
+    /* border: 1px solid #33333337; */
+    /* border-radius: 7px; */
+}
+
+#contenedor-tabla .tabla table tbody tr{
+    border-bottom: 1px solid #33333332;
+}
+
+#contenedor-tabla .tabla table tbody tr td{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* padding: 7px; */
+    width: 7%;
+    flex-wrap: unset;
+}
+
+#contenedor-tabla .tabla table tbody tr td button{
+    padding: 5px;
+    background-color: rgb(0, 140, 255);
+    color: white;
+    border-radius: 7px;
+    border: none;
+    cursor: pointer;
+}
+
+#contenedor-tabla .tabla table tbody tr td button:active{
+    transform: scale(0.95);
+}
+
+
+
+
+
+
+
+/* Clases */
+#contenedor-formulario.usuario {
+    display: none;
+}
+
+#contenedor-tabla.usuario {
+    height: 90%;
+}

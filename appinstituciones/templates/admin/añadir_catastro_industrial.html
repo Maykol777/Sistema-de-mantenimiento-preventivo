@@ -1,0 +1,223 @@
+{% extends "admin/base_admin.html" %}
+{% load static %}
+
+
+{% block titulo_pestania %}Añadir Catastro Industrial{% endblock titulo_pestania %}
+
+{% block contenido_dinamico %}
+<link rel="stylesheet" href="{% static 'css/admin/catastro_industrial.css' %}">
+<script src="{% static 'js/vue.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<div id="app">
+	{% if request.user.cargo == 'administrador' %}
+	<div id="contenedor-formulario">
+	
+		<div class="titulo-">
+			<h2>Ingresar Equipo Industrial</h2>
+		</div>
+
+		<form method="POST">
+			{% csrf_token %}
+			<div>
+				
+				<input type="text" required placeholder="Clase" name="clase">
+				<input type="text" required placeholder="Marca" name="marca">
+				<input type="text" required placeholder="Modelo" name="modelo">
+			</div>
+
+			<div>
+				<input type="text" required placeholder="N° de inventario" name="numero-inventario">
+				<input type="number" required placeholder="Año de adquisición, ej: 2023" name="anio-adquisicion">
+				<input type="number" required placeholder="Vida útil" name="vida-util">
+			</div>
+
+			<div>
+				<input type="text" required placeholder="Propiedad" name="propiedad">
+				<input type="text" required placeholder="Criticidad" name="Criticidad">
+
+				<select name="estado" id="">
+					<option value="" disabled selected>Seleccione un estado</option>
+					<option value="BUENO">Bueno</option> <!-- Bueno - Regular - Malo - Baja -->
+					<option value="REGULAR">Regular</option>
+					<option value="MALO">Malo</option>
+					<option value="BAJA">Baja</option>
+				</select>
+
+			</div>
+
+			<div>
+				
+			
+				<select name="institucion">
+					<option value="" disabled selected>Seleccione una ciudad</option>
+					<option value="1">Lebu</option>
+					<option value="2">Arauco</option>
+					<option value="4">Cañete</option>
+					<option value="3">Curanilahue</option>
+					<option value="5">Contulmo</option>
+				</select>
+			</div>
+
+			<div>
+				<input type="submit" value="Agregar">
+				{% if messages %}
+				<ul class="messages">
+					{% for message in messages %}
+					<li style="color: green;" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+					{% endfor %}
+				</ul>
+				{% endif %}
+			</div>
+		</form>
+	</div>
+
+	{% elif request.user.cargo == 'usuario' %}
+	<div id="contenedor-formulario" class="usuario">
+	
+		<div class="titulo-">
+			<h2>Ingresar Equipo Industrial</h2>
+		</div>
+
+		<form method="POST">
+			{% csrf_token %}
+			<div>
+				
+				<input type="text" required placeholder="Clase" name="clase">
+				<input type="text" required placeholder="Marca" name="marca">
+				<input type="text" required placeholder="Modelo" name="modelo">
+			</div>
+
+			<div>
+				<input type="text" required placeholder="N° de inventario" name="numero-inventario">
+				<input type="number" required placeholder="Año de adquisición, ej: 2023" name="anio-adquisicion">
+				<input type="number" required placeholder="Vida útil" name="vida-util">
+			</div>
+
+			<div>
+				<input type="text" required placeholder="Propiedad" name="propiedad">
+				<input type="text" required placeholder="Criticidad" name="Criticidad">
+				
+				<select name="estado" id="">
+					<option value="" disabled selected>Seleccione un estado</option>
+					<option value="BUENO">Bueno</option> <!-- Bueno - Regular - Malo - Baja -->
+					<option value="REGULAR">Regular</option>
+					<option value="MALO">Malo</option>
+					<option value="BAJA">Baja</option>
+				</select>
+
+			</div>
+
+			<div>
+				
+			
+				<select name="institucion">
+					<option value="" disabled selected>Seleccione una ciudad</option>
+					<option value="1">Lebu</option>
+					<option value="2">Arauco</option>
+					<option value="4">Cañete</option>
+					<option value="3">Curanilahue</option>
+					<option value="5">Contulmo</option>
+				</select>
+			</div>
+
+			<div>
+				<input type="submit" value="Agregar">
+				{% if messages %}
+				<ul class="messages">
+					{% for message in messages %}
+					<li style="color: green;" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+					{% endfor %}
+				</ul>
+				{% endif %}
+			</div>
+		</form>
+	</div>
+	{% endif %}
+
+
+
+
+	{% if request.user.cargo == 'administrador' %}
+	<div id="contenedor-tabla">
+		<div class="tabla">
+			<table id="tabla">
+				<thead>
+					<tr>
+						<th>Clase</th>
+						<th>Marca</th>
+						<th>Modelo</th>
+						<th>N° Inventario</th>
+						<th>Año de Adquisición</th>
+						<th>Vida Útil</th>
+						<th>Propiedad</th>
+						<th>Estado</th>
+						<th>Criticidad</th>
+						
+						
+					
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="data in data_tabla" :key="data.id">
+						<td>${ data.clase }</td>
+						<td>${data.marca}</td>
+						<td>${ data.modelo }</td>
+						<td>${data.numero_inventario}</td>
+						<td>${ data.anio_adquisicion }</td>
+						<td>${ data.vida_util }</td>
+						<td>${data.propio}</td>
+						<td>${data.estado}</td>
+						<td>${data.criticidad}</td>
+
+						
+						
+						
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	{% elif request.user.cargo == 'usuario' %}
+	<div id="contenedor-tabla" class="usuario">
+		<div class="tabla">
+			<table id="tabla">
+				<thead>
+					<tr>
+						<th>Clase</th>
+						<th>Marca</th>
+						<th>Modelo</th>
+						<th>N° Inventario</th>
+						<th>Año de Adquisición</th>
+						<th>Vida Útil</th>
+						<th>Propiedad</th>
+						<th>Estado</th>
+						<th>Criticidad</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="data in data_tabla" :key="data.id">
+						<td>${ data.clase }</td>
+						<td>${data.marca}</td>
+						<td>${ data.modelo }</td>
+						<td>${data.numero_inventario}</td>
+						<td>${ data.anio_adquisicion }</td>
+						<td>${ data.vida_util }</td>
+						<td>${data.propio}</td>
+						<td>${data.estado}</td>
+						<td>${data.criticidad}</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	{% endif %}
+
+
+</div>
+
+<!-- <script src="{% static 'js/admin/catastro_industrial.js' %}"></script> -->
+<script src="{% static 'js/admin/catastro_industrial.js' %}"></script>
+
+{% endblock contenido_dinamico %}

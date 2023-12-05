@@ -1,0 +1,95 @@
+{% extends "admin/base_admin.html" %}
+{% load static %}
+
+{% block titulo_pestania %}Inicio{% endblock titulo_pestania %}
+
+
+{% block contenido_dinamico %}
+<link rel="stylesheet" href="{% static 'css/admin/inicio.css' %}">
+
+  
+
+
+
+<div class="titulo">
+    <h2>Bienvenido, {{ request.user.first_name }} {{ request.user.last_name }}</h2>
+</div>
+
+
+<div class="tarjetas">
+    {% for institucion in instituciones %}
+        <div class="tarjeta">
+            <h2>{{ institucion.nombre }}</h2>
+            <h4>{{ institucion.ciudad }}</h5>
+            <!-- <p>Progreso de Mantenciones Anual</p> -->
+            <p>Progreso de Mantenciones</p>
+            
+            <div id="grafico-lebu">
+            </div>
+
+            <div id="contenedor-multiples-graficos">
+                <div id="grafico1"></div>
+                <div id="grafico2"></div>
+                <div id="grafico3"></div>
+            </div>
+        </div>
+    {% endfor %}
+
+
+
+
+
+
+
+
+
+    <div class="tarjeta">
+        <h2>Arauco</h2>
+        <h4>Arauco</h5>
+        <!-- <p>Progreso de Mantenciones Anual</p> -->
+        <p>Progreso de Mantenciones</p>
+        
+        <div id="grafico-arauco">
+            <!-- <h1 style="color:  gray;">SIN INFORMACIÓN</h1> -->
+        </div>
+
+        <div id="contenedor-multiples-graficos">
+            <div id="grafico1-arauco"></div>
+            <div id="grafico2-arauco"></div>
+            <div id="grafico3-arauco"></div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <div class="tarjeta">
+        <h2>Cañete</h2>
+        <h4>Cañete</h5>
+        <!-- <p>Progreso de Mantenciones Anual</p> -->
+        <p>Progreso de Mantenciones</p>
+        
+        <div id="grafico-canete">
+            <!-- <h1 style="color:  gray;">SIN INFORMACIÓN</h1> -->
+        </div>
+
+        <div id="contenedor-multiples-graficos">
+            <div id="grafico1-canete"></div>
+            <div id="grafico2-canete"></div>
+            <div id="grafico3-canete"></div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
+{% endblock contenido_dinamico %}

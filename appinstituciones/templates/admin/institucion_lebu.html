@@ -1,0 +1,89 @@
+{% extends "admin/base_admin.html" %}
+{% load static %}
+
+
+{% block titulo_pestania %}{{ institucion.nombre }}{% endblock titulo_pestania %}
+
+{% block contenido_dinamico %}
+<link rel="stylesheet" href="{% static 'css/admin/instituciones.css' %}">
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<!-- <script src="https://cdn.tailwindcss.com"></script> -->
+
+<div id="app">
+	<div class="titulo">
+		<h2>{{ institucion.nombre }}</h2>
+		<div>
+			<p>Tipo de Equipo</p>
+			<select id="select-tipo-equipo" v-model="opcionSelecionada" @change="actualizarGraficoMedianteSelect">
+				<option v-for="opcion in select_lista_instituciones" :key="opcion.valor" :value="opcion.valor">${ opcion.texto }
+				</option>
+			</select>
+			<!-- <div id="url-data" data-url="{% url 'instituciones_admin' institucion='Lebu' tipo_equipo='industrial' %}"></div> -->
+		</div>
+	</div>
+
+
+
+	<div class="contenedor-graficos">
+		<div class="grafico-pie">
+			<div class="titulo-grafico">
+				<h3>${ titulo_primer_grafico }</h3>
+			</div>
+
+			<div class="graficos">
+				<!-- <div id="grafico-mensual"></div> -->
+				<div id="grafico-anual" v-if="opcionSelecionada !== 'valor'">
+				</div>
+			</div>
+		</div>
+		<div class="grafico-barra">
+			<div>
+				<div>
+					<h3>Progreso</h3>
+				</div>
+				<div id="grafico-barra-criticidad-anual"></div>
+				<div id="grafico-barra-relevante-anual"></div>
+				<div id="info">
+					<span id="vida-util">Equipos con baja vida útil: ${ vida_util }</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="contenedor-tabla">
+		<div class="tabla">
+			<table id="tabla">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Servcio Clínico</th>
+						<th>Clase</th>
+						<th>Marca</th>
+						<th>Modelo</th>
+						<th>Estado</th>
+						<th>Criticidad</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="data in data_tabla" :key="data.id">
+						<td>${ data.id }</td>
+						<td>${ data.ubicacion }</td>
+						<td>${ data.clase }</td>
+						<td>${ data.marca }</td>
+						<td>${ data.modelo }</td>
+						<td>${ data.estado }</td>
+						<td>${ data.criticidad }</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
+	<script src="{% static 'js/admin/institucion_lebu.js' %}"></script>
+
+</div>
+
+{% endblock contenido_dinamico %}

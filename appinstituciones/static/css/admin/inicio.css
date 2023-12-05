@@ -1,0 +1,92 @@
+main section .titulo{
+    width: 100%;
+    height: 10%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 7px;
+    border: 1px solid #3333332a;
+}
+
+main section .titulo h2{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+
+
+
+
+
+
+main section .tarjetas{
+    width: 100%;
+    height: 85%;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+main section .tarjetas .tarjeta{
+    width: 32%;
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 7px;
+    border: 1px solid #3333332a;
+}
+
+main section .tarjetas .tarjeta h2,
+main section .tarjetas .tarjeta h4,
+main section .tarjetas .tarjeta p{
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #646464;
+}
+
+main section .tarjetas .tarjeta #grafico-lebu,
+main section .tarjetas .tarjeta #grafico-arauco,
+main section .tarjetas .tarjeta #grafico-canete{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 30%;
+    margin-top: 10px;
+}
+
+main section .tarjetas .tarjeta #grafico-lebu div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+
+main section .tarjetas .tarjeta #contenedor-multiples-graficos{
+    width: 100%;
+    height: 40%;
+    margin-top: 20px;
+}
+
+main section .tarjetas .tarjeta #contenedor-multiples-graficos #grafico1,
+main section .tarjetas .tarjeta #contenedor-multiples-graficos #grafico2,
+main section .tarjetas .tarjeta #contenedor-multiples-graficos #grafico3,
+main section .tarjetas .tarjeta #contenedor-multiples-graficos #grafico1-arauco,
+main section .tarjetas .tarjeta #contenedor-multiples-graficos #grafico2-arauco,
+main section .tarjetas .tarjeta #contenedor-multiples-graficos #grafico3-arauco,
+main section .tarjetas .tarjeta #contenedor-multiples-graficos #grafico1-canete,
+main section .tarjetas .tarjeta #contenedor-multiples-graficos #grafico2-canete,
+main section .tarjetas .tarjeta #contenedor-multiples-graficos #grafico3-canete{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 33%;
+}
